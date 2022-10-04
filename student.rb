@@ -1,14 +1,13 @@
-require_relative 'school.rb'
+# require_relative('school.rb')
 require 'colorize'
 require 'pry'
-class Student
+class Student 
     
-  attr_accessor :student_name, :roll_number, :birth_date, :class_name, :school
+  attr_accessor :student_name, :roll_number, :birth_date, :class_name, :school, :student_percentage
     
-  def initialize(school)
+  def initialize(school, class_name)
+    @class_name = class_name
     @school = school
-    puts 'Please Enter the Class Where you want to add'
-    @class_name = gets.chomp 
     if school.any?{|i| i.has_key?"#{class_name}"} && !school.empty?
       puts 'Student name'
       @student_name = gets.chomp
@@ -17,14 +16,13 @@ class Student
       puts 'Birth date'
       @birth_date = gets.chomp
       puts 'Percentage'
-    else 
-      puts 'Please create a class first'.colorize( :red )
+      @student_percentage = gets.chomp
+    else
+      return puts 'Please create a class first'.colorize( :red )
     end
   end
 
   def add_student
-    student_percentage = gets.chomp
-    student_details = {name: student_name, roll_no: roll_number, DOB: birth_date,   percentage: student_percentage}
-    school.each{|i| i["#{class_name}"] << student_details }
+    { name: student_name, roll_no: roll_number, DOB: birth_date, percentage: student_percentage }
   end
 end
